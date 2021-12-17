@@ -1,0 +1,56 @@
+@font-face {
+    font-family: "GT Sectra";
+    src: url("/fonts/sectra/regular.woff2") format("woff2");
+    font-style: normal;
+    font-weight: normal;
+}
+
+@font-face {
+    font-family: "GT Sectra Display";
+    src: url("/fonts/sectra/display-bold.woff2") format("woff2");
+    font-style: normal;
+    font-weight: bold;
+}
+
+@font-face {
+    font-family: "JetBrains Mono";
+    src: url("/fonts/jetbrains/regular.woff2") format("woff2");
+    font-style: normal;
+    font-weight: normal;
+}
+
+body {
+    font-family: "GT Sectra", serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+    font-family: "GT Sectra Display", serif;
+    text-transform: lowercase;
+}
+
+code {
+    font-family: "JetBrains Mono", monospace;
+}
+
+.sheet {
+    display: block;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+}
+
+.sheet__image {
+    width: 50%;
+    visibility: hidden;
+}
+
+.sheet__image--left {
+    float: left;
+}
+
+.sheet__image--right {
+    float: right;
+}
