@@ -23,7 +23,7 @@ export const loader: LoaderFunction = async ({ params }) => {
   const data: SheetData = {
     // @todo: add 404
     id: params.id || "n/a",
-    sheetImage: { left, right }
+    sheetImage: { left, right },
   };
 
   return data;
@@ -40,9 +40,7 @@ export default function SheetPage() {
 
   return (
     <div>
-      <h1>
-        The sheet is {data.id}
-      </h1>
+      <h1>The sheet is {data.id}</h1>
       <Sheet
         left={data.sheetImage.left}
         right={data.sheetImage.right}

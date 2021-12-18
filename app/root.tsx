@@ -6,7 +6,7 @@ import {
   Outlet,
   Scripts,
   ScrollRestoration,
-  useCatch
+  useCatch,
 } from "remix";
 import type { LinksFunction } from "remix";
 import React from "react";
@@ -15,9 +15,7 @@ import globalStylesUrl from "~/styles/global.css";
 
 // https://remix.run/api/app#links
 export let links: LinksFunction = () => {
-  return [
-    { rel: "stylesheet", href: globalStylesUrl },
-  ];
+  return [{ rel: "stylesheet", href: globalStylesUrl }];
 };
 
 // https://remix.run/api/conventions#default-export
@@ -90,7 +88,7 @@ export function CatchBoundary() {
 
 function Document({
   children,
-  title
+  title,
 }: {
   children: React.ReactNode;
   title?: string;

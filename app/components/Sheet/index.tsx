@@ -20,9 +20,7 @@ function Sheet({ left, right, copy }: Props): React.ReactElement {
         style={{ shapeOutside: encodeSVG(right) }}
         dangerouslySetInnerHTML={{ __html: right }}
       />
-      <code className="sheet__copy">
-        {copy}
-      </code>
+      <code className="sheet__copy">{copy}</code>
     </div>
   );
 }
