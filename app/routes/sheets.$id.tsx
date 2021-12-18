@@ -3,13 +3,33 @@ import type { LoaderFunction, MetaFunction } from 'remix';
 import createSheetMask from '~/blob/createSheetMask.server';
 import Sheet from '~/components/Sheet';
 import { createBlobFromSeed, createBlobSeed } from '~/blob/createBlob';
+import createClient from '~/github/client';
+import { useEffect } from 'react';
+import getSheet from '~/prose/getSheet';
+import getSheetIDs from '~/prose/getSheetIDs';
 
 interface SheetData {
   id: string;
+  title: string;
+  copy: string;
+  link: string;
   sheetImage: {
     left: string;
     right: string;
   };
+  nextSheetId: string;
+}
+
+function encodeSeed(blobSeed: string, sheetId: string) {
+  const id = [blobSeed, sheetId].join(':');
+  const buff = new Buffer(id);
+  return buff.toString('base64');
+}
+
+function decodeSeed(data: string) {
+  const buff = new Buffer(data, 'base64');
+  const [blobSeed, sheetId] = buff.toString('ascii').split(':');
+  return [blobSeed, sheetId];
 }
 
 export const loader: LoaderFunction = async ({ params }) => {
@@ -19,12 +39,23 @@ export const loader: LoaderFunction = async ({ params }) => {
     throw new Response('Seed not found', { status: 404 });
   }
 
-  const svg = createBlobFromSeed(seed);
+  const [blobSeed, sheetId] = decodeSeed(seed);
+
+  const svg = createBlobFromSeed(blobSeed);
   const [left, right] = createSheetMask(svg);
+
+  const { attributes, body } = getSheet(sheetId);
+
+  const sheetIDs = getSheetIDs();
+  const randomSheetId = sheetIDs[Math.floor(Math.random() * sheetIDs.length)];
 
   const data: SheetData = {
     id: seed,
+    title: attributes.title,
+    link: attributes.link,
+    copy: body,
     sheetImage: { left, right },
+    nextSheetId: encodeSeed(createBlobSeed(), randomSheetId),
   };
 
   return data;
@@ -41,13 +72,16 @@ export default function SheetPage() {
 
   return (
     <div>
-      <h1>The sheet is {data.id}</h1>
+      <h1>{data.title}</h1>
+      <a href={data.link} target="_blank" rel="noopener noreferrer">
+        Reunite sheet
+      </a>
       <Sheet
         left={data.sheetImage.left}
         right={data.sheetImage.right}
-        copy="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et orci id risus lobortis tincidunt. In quis erat sed nunc euismod facilisis in vitae turpis. Nullam et quam a justo vestibulum commodo. Suspendisse cursus felis quis lectus blandit consequat. Sed ut congue ipsum. Phasellus nec condimentum arcu. Maecenas vitae nisi leo. Pellentesque porta, libero vel placerat scelerisque, elit turpis vulputate purus, rutrum commodo mi erat et diam. Etiam feugiat pulvinar mauris, at maximus tellus porttitor at. Maecenas eu urna pulvinar, dapibus tortor ut, interdum turpis. In pretium ac quam eget euismod. Fusce vel urna a leo aliquam tristique vitae laoreet urna. Ut pharetra aliquet ante non cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et orci id risus lobortis tincidunt. In quis erat sed nunc euismod facilisis in vitae turpis. Nullam et quam a justo vestibulum commodo. Suspendisse cursus felis quis lectus blandit consequat. Sed ut congue ipsum. Phasellus nec condimentum arcu. Maecenas vitae nisi leo. Pellentesque porta, libero vel placerat scelerisque, elit turpis vulputate purus, rutrum commodo mi erat et diam. Etiam feugiat pulvinar mauris, at maximus tellus porttitor at. Maecenas eu urna pulvinar, dapibus tortor ut, interdum turpis. In pretium ac quam eget euismod. Fusce vel urna a leo aliquam tristique vitae laoreet urna. Ut pharetra aliquet ante non cursus. Maecenas eu urna pulvinar, dapibus tortor ut, interdum turpis. In pretium ac quam eget euismod. Fusce vel urna a leo aliquam tristique vitae laoreet urna. Ut pharetra aliquet ante non cursus. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et orci id risus lobortis tincidunt. In quis erat sed nunc euismod facilisis in vitae turpis. Nullam et quam a justo vestibulum commodo. Suspendisse cursus felis quis lectus blandit consequat. Sed ut congue ipsum. Phasellus nec condimentum arcu. Maecenas vitae nisi leo. Pellentesque porta, libero vel placerat scelerisque, elit turpis vulputate purus, rutrum commodo mi erat et diam. Etiam feugiat pulvinar mauris, at maximus tellus porttitor at. Maecenas eu urna pulvinar, dapibus tortor ut, interdum turpis. In pretium ac quam eget euismod. Fusce vel urna a leo aliquam tristique vitae laoreet urna. Ut pharetra aliquet ante non cursus."
+        copy={data.copy}
       />
-      <Link to={`/sheets/${createBlobSeed()}`}>Next</Link>
+      <Link to={`/sheets/${encodeURIComponent(data.nextSheetId)}`}>Next</Link>
     </div>
   );
 }
