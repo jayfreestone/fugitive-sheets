@@ -1,3 +1,46 @@
+/**
+ * The new CSS Reset - version 1.2.0 (last updated 23.7.2021)
+ */
+
+/* Remove all the styles of the "User-Agent-Stylesheet", except for the 'display' property */
+*:where(:not(iframe, canvas, img, svg, video):not(svg *)) {
+    all: unset;
+    display: revert;
+}
+
+/* Preferred box-sizing value */
+*,
+*::before,
+*::after {
+    box-sizing: border-box;
+}
+
+/*
+  Remove list styles (bullets/numbers)
+  in case you use it with normalize.css
+*/
+ol, ul {
+    list-style: none;
+}
+
+/* For images to not be able to exceed their container */
+img {
+    max-width: 100%;
+}
+
+/* Removes spacing between cells in tables */
+table {
+    border-collapse: collapse;
+}
+
+/* Revert the 'white-space' property for textarea elements on Safari */
+textarea {
+    white-space: revert;
+}
+
+/***
+ * Fonts
+ */
 @font-face {
     font-family: "GT Sectra";
     src: url("/fonts/sectra/regular.woff2") format("woff2");
@@ -14,11 +57,14 @@
 
 @font-face {
     font-family: "JetBrains Mono";
-    src: url("/fonts/jetbrains/regular.woff2") format("woff2");
+    src: url("/fonts/jetbrains-mono/regular.woff2") format("woff2");
     font-style: normal;
     font-weight: normal;
 }
 
+/***
+ * Base
+ */
 body {
     font-family: "GT Sectra", serif;
 }
@@ -36,6 +82,9 @@ code {
     font-family: "JetBrains Mono", monospace;
 }
 
+/**
+ * Sheet
+ */
 .sheet {
     display: block;
     aspect-ratio: 1 / 1;
@@ -53,4 +102,8 @@ code {
 
 .sheet__image--right {
     float: right;
+}
+
+.sheet__copy {
+    hyphens: auto;
 }
