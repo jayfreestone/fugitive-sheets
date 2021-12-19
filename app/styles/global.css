@@ -413,3 +413,23 @@ a:hover {
   display: inline-block;
   vertical-align: -0.2em;
 }
+
+
+/**
+ * About
+ */
+.about {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  height: 100%;
+}
+
+.about__prose {
+  max-width: 56ch;
+  color: var(--t-base-muted);
+}
+
+.prose > * + * {
+  margin-top: var(--space-s);
+}

@@ -12,13 +12,10 @@ import type { LinksFunction } from 'remix';
 import React from 'react';
 import globalStylesUrl from '~/styles/global.css';
 
-// https://remix.run/api/app#links
 export let links: LinksFunction = () => {
   return [{ rel: 'stylesheet', href: globalStylesUrl }];
 };
 
-// https://remix.run/api/conventions#default-export
-// https://remix.run/api/conventions#route-filenames
 export default function App() {
   return (
     <Document>
@@ -29,7 +26,6 @@ export default function App() {
   );
 }
 
-// https://remix.run/docs/en/v1/api/conventions#errorboundary
 export function ErrorBoundary({ error }: { error: Error }) {
   console.error(error);
   return (
@@ -38,37 +34,20 @@ export function ErrorBoundary({ error }: { error: Error }) {
         <div>
           <h1>There was an error</h1>
           <p>{error.message}</p>
-          <hr />
-          <p>
-            Hey, developer, you should replace this with what you want your
-            users to see.
-          </p>
         </div>
       </Layout>
     </Document>
   );
 }
 
-// https://remix.run/docs/en/v1/api/conventions#catchboundary
 export function CatchBoundary() {
-  let caught = useCatch();
+  const caught = useCatch();
 
   let message;
   switch (caught.status) {
-    case 401:
-      message = (
-        <p>
-          Oops! Looks like you tried to visit a page that you do not have access
-          to.
-        </p>
-      );
-      break;
     case 404:
-      message = (
-        <p>Oops! Looks like you tried to visit a page that does not exist.</p>
-      );
+      message = <p>404: A truly fugitive sheet...</p>;
       break;
-
     default:
       throw new Error(caught.data || caught.statusText);
   }
@@ -122,14 +101,24 @@ function Layout({ children }: { children: React.ReactNode }) {
             <span aria-hidden>—</span> Sheets
           </Link>
         </h1>
-        <div className="site-header__intro">
+        <div className="site-header__intro prose">
           <p>
-            Anatomical “fugitive” sheets, so named because of their unfortunate
-            tendency of being torn or misplaced over time, allowed readers to
-            visualize the layers of organs lying beneath an illustrated
-            subject’s flesh. Any observer could see the interior of the body
-            through stages of dissection without the limitations set by a
-            decaying corpse.
+            Anatomical{' '}
+            <a
+              target="_blank"
+              rel="noopener noreferrer"
+              href="https://en.wikipedia.org/wiki/Anatomical_fugitive_sheet"
+            >
+              “fugitive sheets”
+            </a>{' '}
+            are are illustrations of the body designed to display internal
+            organs and structures using paper flaps. Their name arose from the
+            frequency with which the accompanying sheets were torn or misplaced.
+            This site reimagines the fugitive sheet as a misplaced code-snippet,
+            framed within a randomly generated cut-out.
+          </p>
+          <p>
+            <Link to="/about">Learn more</Link>
           </p>
         </div>
       </header>
@@ -146,6 +135,13 @@ function Layout({ children }: { children: React.ReactNode }) {
           </a>
         </span>
         <span>Created by Jay Freestone</span>
+        <a
+          href="https://twitter.com/jayfreestone"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          @jayfreestone
+        </a>
         <a
           href="https://www.jayfreestone.com"
           target="_blank"
