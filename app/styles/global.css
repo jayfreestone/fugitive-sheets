@@ -66,8 +66,9 @@ textarea {
 /***
  * Scales
  */
+
+/* @link https://utopia.fyi/type/calculator?c=320,16,1.2,1440,18,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l */
 :root {
-  /* @link https://utopia.fyi/type/calculator?c=320,16,1.2,1440,18,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l */
   --step--2: clamp(0.69rem, 0.69rem + 0.04vw, 0.72rem);
   --step--1: clamp(0.83rem, 0.81rem + 0.10vw, 0.90rem);
   --step-0: clamp(1.00rem, 0.96rem + 0.18vw, 1.13rem);
@@ -80,7 +81,6 @@ textarea {
 }
 
 /* @link https://utopia.fyi/space/calculator?c=320,16,1.2,1140,18,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l */
-
 :root {
   --fluid-min-width: 320;
   --fluid-max-width: 1140;
@@ -154,7 +154,9 @@ textarea {
 
 :root {
   --t-base: #f8f9fa;
+  --t-base-muted: #dee2e6;
   --t-backdrop: #212529;
+  --t-accent: #4dabf7;
 }
 
 /***
@@ -165,6 +167,8 @@ body {
   color: var(--t-base);
   background-color: var(--t-backdrop);
   font-size: var(--step-0);
+  background-image: url('/img/noise.svg');
+  background-blend-mode: overlay;
 }
 
 h1,
@@ -180,41 +184,43 @@ code {
   font-family: "JetBrains Mono", monospace;
 }
 
+a {
+  color: var(--t-accent);
+  text-decoration: underline;
+}
+
+a:hover {
+  cursor: pointer;
+}
+
+::selection {
+  color: var(--t-backdrop);
+  background-color: var(--t-base);
+}
+
 /**
  * Site layout
  */
 .site {
   --site-grid-template: 'header' 'content' 'footer';
   --site-grid-rows: auto 1fr auto;
+  --site-grid-gap: var(--space-l);
 
   min-height: 100vh;
   display: grid;
   grid-template-areas: var(--site-grid-template);
   grid-template-rows: var(--site-grid-rows);
-  grid-gap: var(--space-l);
-  padding: var(--space-l);
+  grid-gap: var(--site-grid-gap);
+  padding: var(--site-grid-gap);
   overflow: hidden;
   isolation: isolate;
 }
-
-/*.site::after {*/
-/*  content: '';*/
-/*  position: absolute;*/
-/*  width: 100%;*/
-/*  height: 100%;*/
-/*  top: 0;*/
-/*  left: 0;*/
-/*  background-image: url("https://www.transparenttextures.com/patterns/bedge-grunge.png");*/
-/*  background-repeat: repeat;*/
-/*  !* 588 x 275 *!*/
-/*  background-size: 294px 137px;*/
-/*  mix-blend-mode: color-burn;*/
-/*}*/
 
 @media (min-width: 70em) {
   .site {
     --site-grid-template: 'header content' 'footer footer';
     --site-grid-rows: 1fr auto;
+    --site-grid-gap: var(--space-xl);
     grid-template-columns: 30rem 1fr;
   }
 }
@@ -239,13 +245,47 @@ code {
  */
 .site-header {
   display: flex;
-  flex-direction: column;
+  flex-wrap: wrap;
   justify-content: space-between;
+  gap: var(--space-m);
 }
 
 .site-header__title {
-  font-size: var(--step-5);
+  --site-header-size: var(--step-5);
+  font-size: var(--site-header-size);
   line-height: 1.1;
+  white-space: nowrap;
+}
+
+@media (min-width: 40em) {
+  .site-header__title {
+    --site-header-size: 4rem;
+  }
+}
+
+@media (min-width: 70em) {
+  .site-header__title {
+    --site-header-size: 7rem;
+  }
+}
+
+.site-header__title a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.site-header__intro {
+  --intro-alignment: center;
+  min-width: min(20ch, 100%);
+  max-width: 50ch;
+  color: var(--t-base-muted);
+  align-self: var(--intro-alignment);
+}
+
+@media (min-width: 70em) {
+  .site-header__intro {
+    --intro-alignment: flex-end;
+  }
 }
 
 /**
@@ -257,13 +297,18 @@ code {
   height: 100%;
 }
 
-.sheet_observer__header {
-  text-align: right;
+.sheet-observer__header {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: var(--space-2xs);
 }
 
 .sheet-observer__frame {
   position: relative;
   flex-grow: 1;
+  /* Ensure on mobile etc. that we at least get a decent size sheet */
+  min-height: 40rem;
 }
 
 .sheet-observer__sheet {
@@ -280,6 +325,10 @@ code {
 .sheet-observer__sheet > * {
   max-height: 100%;
   max-width: 100%;
+}
+
+.sheet-observer__footer {
+  text-align: right;
 }
 
 /**
@@ -334,5 +383,19 @@ code {
  */
 .site-footer {
   display: flex;
-  gap: var(--space-m)
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: var(--space-xs) var(--space-m);
+  color: var(--t-base-muted);
+}
+
+/**
+ * Icon
+ */
+.icon {
+  width: 1em;
+  height: 1em;
+  fill: currentColor;
+  display: inline-block;
+  vertical-align: -0.2em;
 }

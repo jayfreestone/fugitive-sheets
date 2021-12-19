@@ -122,13 +122,16 @@ function Layout({ children }: { children: React.ReactNode }) {
             <span aria-hidden>—</span> Sheets
           </Link>
         </h1>
-        <p>
-          Anatomical “fugitive” sheets, so named because of their unfortunate
-          tendency of being torn or misplaced over time, allowed readers to
-          visualize the layers of organs lying beneath an illustrated subject’s
-          flesh. Any observer could see the interior of the body through stages
-          of dissection without the limitations set by a decaying corpse.
-        </p>
+        <div className="site-header__intro">
+          <p>
+            Anatomical “fugitive” sheets, so named because of their unfortunate
+            tendency of being torn or misplaced over time, allowed readers to
+            visualize the layers of organs lying beneath an illustrated
+            subject’s flesh. Any observer could see the interior of the body
+            through stages of dissection without the limitations set by a
+            decaying corpse.
+          </p>
+        </div>
       </header>
       <div className="site__content">{children}</div>
       <footer className="site__footer site-footer">

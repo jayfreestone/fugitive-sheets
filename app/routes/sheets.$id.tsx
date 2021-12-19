@@ -5,6 +5,7 @@ import Sheet from '~/components/Sheet';
 import { createBlobFromSeed, createBlobSeed } from '~/blob/createBlob';
 import getSheet from '~/prose/getSheet';
 import getSheetIDs from '~/prose/getSheetIDs';
+import RefreshIcon from '~/components/RefreshIcon';
 
 interface SheetData {
   id: string;
@@ -71,10 +72,10 @@ export default function SheetPage() {
 
   return (
     <div className="sheet-observer">
-      <div className="sheet_observer__header">
+      <div className="sheet-observer__header">
         <h1>{data.title}</h1>
         <a href={data.link} target="_blank" rel="noopener noreferrer">
-          Reunite sheet
+          Source
         </a>
       </div>
       <div className="sheet-observer__frame">
@@ -87,9 +88,12 @@ export default function SheetPage() {
           />
         </div>
       </div>
-      <Link to={`/sheets/${encodeURIComponent(data.nextSheetId)}`}>
-        Another
-      </Link>
+      <div className="sheet-observer__footer">
+        <Link to={`/sheets/${encodeURIComponent(data.nextSheetId)}`}>
+          <RefreshIcon className="icon" />
+          Next sheet
+        </Link>
+      </div>
     </div>
   );
 }
