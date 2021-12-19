@@ -4,6 +4,8 @@ import React from 'react';
 export const meta: MetaFunction = () => {
   return {
     title: 'About Fugitive Sheets',
+    description:
+      "Each sheet includes an excerpt of code taken I've written throughout my career — some private, some public, some good and some poor. Where a source is public, it is provided.",
   };
 };
 

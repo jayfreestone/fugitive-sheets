@@ -30,6 +30,8 @@ export const loader: LoaderFunction = () => {
 export const meta: MetaFunction = () => {
   return {
     title: 'Fugitive Sheets',
+    description:
+      'Anatomical “fugitive sheets” are are illustrations of the body designed to display internal organs and structures using paper flaps. Their name arose from the frequency with which the accompanying sheets were torn or misplaced. This site reimagines the fugitive sheet as a misplaced code-snippet, framed within a randomly generated cut-out.',
   };
 };
 
