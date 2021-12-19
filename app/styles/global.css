@@ -295,6 +295,11 @@ a:hover {
   display: flex;
   flex-direction: column;
   height: 100%;
+  transition: opacity 0.1s;
+}
+
+.sheet-observer--is-loading {
+  opacity: 0.2;
 }
 
 .sheet-observer__header {

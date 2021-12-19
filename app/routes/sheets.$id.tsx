@@ -1,11 +1,13 @@
-import { Link, useLoaderData } from 'remix';
+import { Link, useLoaderData, useTransition } from 'remix';
 import type { LoaderFunction, MetaFunction } from 'remix';
+import cn from 'classnames';
 import createSheetMask from '~/blob/createSheetMask.server';
 import Sheet from '~/components/Sheet';
 import { createBlobFromSeed, createBlobSeed } from '~/blob/createBlob';
 import getSheet from '~/prose/getSheet';
 import getSheetIDs from '~/prose/getSheetIDs';
 import RefreshIcon from '~/components/RefreshIcon';
+import useTimeoutLoader from '~/hooks/useTimeoutLoader';
 
 interface SheetData {
   id: string;
@@ -69,9 +71,16 @@ export const meta: MetaFunction = ({ data }: { data: SheetData }) => {
 
 export default function SheetPage() {
   const data = useLoaderData<SheetData>();
+  const transition = useTransition();
+  const showLoader = useTimeoutLoader(transition.state);
 
   return (
-    <div className="sheet-observer">
+    <div
+      className={cn(
+        'sheet-observer',
+        showLoader && 'sheet-observer--is-loading'
+      )}
+    >
       <div className="sheet-observer__header">
         <h1>{data.title}</h1>
         <a href={data.link} target="_blank" rel="noopener noreferrer">
