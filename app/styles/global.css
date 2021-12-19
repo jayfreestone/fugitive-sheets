@@ -64,10 +64,107 @@ textarea {
 }
 
 /***
+ * Scales
+ */
+:root {
+  /* @link https://utopia.fyi/type/calculator?c=320,16,1.2,1440,18,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l */
+  --step--2: clamp(0.69rem, 0.69rem + 0.04vw, 0.72rem);
+  --step--1: clamp(0.83rem, 0.81rem + 0.10vw, 0.90rem);
+  --step-0: clamp(1.00rem, 0.96rem + 0.18vw, 1.13rem);
+  --step-1: clamp(1.20rem, 1.14rem + 0.29vw, 1.41rem);
+  --step-2: clamp(1.44rem, 1.35rem + 0.45vw, 1.76rem);
+  --step-3: clamp(1.73rem, 1.59rem + 0.67vw, 2.20rem);
+  --step-4: clamp(2.07rem, 1.88rem + 0.96vw, 2.75rem);
+  --step-5: clamp(2.49rem, 2.22rem + 1.35vw, 3.43rem);
+
+}
+
+/* @link https://utopia.fyi/space/calculator?c=320,16,1.2,1140,18,1.25,5,2,&s=0.75|0.5|0.25,1.5|2|3|4|6,s-l */
+
+:root {
+  --fluid-min-width: 320;
+  --fluid-max-width: 1140;
+
+  --fluid-screen: 100vw;
+  --fluid-bp: calc((var(--fluid-screen) - var(--fluid-min-width) / 16 * 1rem) / (var(--fluid-max-width) - var(--fluid-min-width)));
+}
+
+@media screen and (min-width: 1140px) {
+  :root {
+    --fluid-screen: calc(var(--fluid-max-width) * 1px);
+  }
+}
+
+:root {
+  --fc-3xs-min: (var(--fc-s-min) * 0.25);
+  --fc-3xs-max: (var(--fc-s-max) * 0.25);
+
+  --fc-2xs-min: (var(--fc-s-min) * 0.5);
+  --fc-2xs-max: (var(--fc-s-max) * 0.5);
+
+  --fc-xs-min: (var(--fc-s-min) * 0.75);
+  --fc-xs-max: (var(--fc-s-max) * 0.75);
+
+  --fc-s-min: (var(--f-0-min, 16));
+  --fc-s-max: (var(--f-0-max, 18));
+
+  --fc-m-min: (var(--fc-s-min) * 1.5);
+  --fc-m-max: (var(--fc-s-max) * 1.5);
+
+  --fc-l-min: (var(--fc-s-min) * 2);
+  --fc-l-max: (var(--fc-s-max) * 2);
+
+  --fc-xl-min: (var(--fc-s-min) * 3);
+  --fc-xl-max: (var(--fc-s-max) * 3);
+
+  --fc-2xl-min: (var(--fc-s-min) * 4);
+  --fc-2xl-max: (var(--fc-s-max) * 4);
+
+  --fc-3xl-min: (var(--fc-s-min) * 6);
+  --fc-3xl-max: (var(--fc-s-max) * 6);
+
+  /* T-shirt sizes */
+  --space-3xs: calc(((var(--fc-3xs-min) / 16) * 1rem) + (var(--fc-3xs-max) - var(--fc-3xs-min)) * var(--fluid-bp));
+  --space-2xs: calc(((var(--fc-2xs-min) / 16) * 1rem) + (var(--fc-2xs-max) - var(--fc-2xs-min)) * var(--fluid-bp));
+  --space-xs: calc(((var(--fc-xs-min) / 16) * 1rem) + (var(--fc-xs-max) - var(--fc-xs-min)) * var(--fluid-bp));
+  --space-s: calc(((var(--fc-s-min) / 16) * 1rem) + (var(--fc-s-max) - var(--fc-s-min)) * var(--fluid-bp));
+  --space-m: calc(((var(--fc-m-min) / 16) * 1rem) + (var(--fc-m-max) - var(--fc-m-min)) * var(--fluid-bp));
+  --space-l: calc(((var(--fc-l-min) / 16) * 1rem) + (var(--fc-l-max) - var(--fc-l-min)) * var(--fluid-bp));
+  --space-xl: calc(((var(--fc-xl-min) / 16) * 1rem) + (var(--fc-xl-max) - var(--fc-xl-min)) * var(--fluid-bp));
+  --space-2xl: calc(((var(--fc-2xl-min) / 16) * 1rem) + (var(--fc-2xl-max) - var(--fc-2xl-min)) * var(--fluid-bp));
+  --space-3xl: calc(((var(--fc-3xl-min) / 16) * 1rem) + (var(--fc-3xl-max) - var(--fc-3xl-min)) * var(--fluid-bp));
+
+  /* One-up pairs */
+  --space-3xs-2xs: calc(((var(--fc-3xs-min) / 16) * 1rem) + (var(--fc-2xs-max) - var(--fc-3xs-min)) * var(--fluid-bp));
+  --space-2xs-xs: calc(((var(--fc-2xs-min) / 16) * 1rem) + (var(--fc-xs-max) - var(--fc-2xs-min)) * var(--fluid-bp));
+  --space-xs-s: calc(((var(--fc-xs-min) / 16) * 1rem) + (var(--fc-s-max) - var(--fc-xs-min)) * var(--fluid-bp));
+  --space-s-m: calc(((var(--fc-s-min) / 16) * 1rem) + (var(--fc-m-max) - var(--fc-s-min)) * var(--fluid-bp));
+  --space-m-l: calc(((var(--fc-m-min) / 16) * 1rem) + (var(--fc-l-max) - var(--fc-m-min)) * var(--fluid-bp));
+  --space-l-xl: calc(((var(--fc-l-min) / 16) * 1rem) + (var(--fc-xl-max) - var(--fc-l-min)) * var(--fluid-bp));
+  --space-xl-2xl: calc(((var(--fc-xl-min) / 16) * 1rem) + (var(--fc-2xl-max) - var(--fc-xl-min)) * var(--fluid-bp));
+  --space-2xl-3xl: calc(((var(--fc-2xl-min) / 16) * 1rem) + (var(--fc-3xl-max) - var(--fc-2xl-min)) * var(--fluid-bp));
+
+  /* Custom pairs */
+  --space-s-l: calc(((var(--fc-s-min) / 16) * 1rem) + (var(--fc-l-max) - var(--fc-s-min)) * var(--fluid-bp));
+}
+
+/***
+ * Palette
+ */
+
+:root {
+  --t-base: #f8f9fa;
+  --t-backdrop: #212529;
+}
+
+/***
  * Base
  */
 body {
   font-family: "GT Sectra", serif;
+  color: var(--t-base);
+  background-color: var(--t-backdrop);
+  font-size: var(--step-0);
 }
 
 h1,
@@ -84,12 +181,121 @@ code {
 }
 
 /**
+ * Site layout
+ */
+.site {
+  --site-grid-template: 'header' 'content' 'footer';
+  --site-grid-rows: auto 1fr auto;
+
+  min-height: 100vh;
+  display: grid;
+  grid-template-areas: var(--site-grid-template);
+  grid-template-rows: var(--site-grid-rows);
+  grid-gap: var(--space-l);
+  padding: var(--space-l);
+  overflow: hidden;
+  isolation: isolate;
+}
+
+/*.site::after {*/
+/*  content: '';*/
+/*  position: absolute;*/
+/*  width: 100%;*/
+/*  height: 100%;*/
+/*  top: 0;*/
+/*  left: 0;*/
+/*  background-image: url("https://www.transparenttextures.com/patterns/bedge-grunge.png");*/
+/*  background-repeat: repeat;*/
+/*  !* 588 x 275 *!*/
+/*  background-size: 294px 137px;*/
+/*  mix-blend-mode: color-burn;*/
+/*}*/
+
+@media (min-width: 70em) {
+  .site {
+    --site-grid-template: 'header content' 'footer footer';
+    --site-grid-rows: 1fr auto;
+    grid-template-columns: 30rem 1fr;
+  }
+}
+
+.site__header {
+  grid-area: header;
+  z-index: 2;
+}
+
+.site__content {
+  grid-area: content;
+  z-index: 1;
+}
+
+.site__footer {
+  grid-area: footer;
+  z-index: 2;
+}
+
+/**
+ * Site Header
+ */
+.site-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.site-header__title {
+  font-size: var(--step-5);
+  line-height: 1.1;
+}
+
+/**
+ * Sheet observer
+ */
+.sheet-observer {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.sheet_observer__header {
+  text-align: right;
+}
+
+.sheet-observer__frame {
+  position: relative;
+  flex-grow: 1;
+}
+
+.sheet-observer__sheet {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+}
+
+.sheet-observer__sheet > * {
+  max-height: 100%;
+  max-width: 100%;
+}
+
+/**
  * Sheet
  */
 .sheet {
-  display: block;
+  position: relative;
+  isolation: isolate;
   aspect-ratio: 1 / 1;
+}
+
+.sheet__inner {
+  display: block;
   overflow: hidden;
+  height: 100%;
+  width: 100%;
 }
 
 .sheet__image {
@@ -107,4 +313,26 @@ code {
 
 .sheet__copy {
   hyphens: auto;
+  font-size: clamp(0.6rem, 0.4rem + 0.5vw, 1.6rem);
+}
+
+.sheet__ghost {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: -1;
+  transform: scale(1.6);
+  opacity: 0.1;
+  fill: black;
+  pointer-events: none;
+}
+
+/**
+ * Site footer
+ */
+.site-footer {
+  display: flex;
+  gap: var(--space-m)
 }

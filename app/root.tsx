@@ -7,15 +7,14 @@ import {
   Scripts,
   ScrollRestoration,
   useCatch,
-} from "remix";
-import type { LinksFunction } from "remix";
-import React from "react";
-
-import globalStylesUrl from "~/styles/global.css";
+} from 'remix';
+import type { LinksFunction } from 'remix';
+import React from 'react';
+import globalStylesUrl from '~/styles/global.css';
 
 // https://remix.run/api/app#links
 export let links: LinksFunction = () => {
-  return [{ rel: "stylesheet", href: globalStylesUrl }];
+  return [{ rel: 'stylesheet', href: globalStylesUrl }];
 };
 
 // https://remix.run/api/conventions#default-export
@@ -106,7 +105,7 @@ function Document({
         {children}
         <ScrollRestoration />
         <Scripts />
-        {process.env.NODE_ENV === "development" && <LiveReload />}
+        {process.env.NODE_ENV === 'development' && <LiveReload />}
       </body>
     </html>
   );
@@ -114,15 +113,43 @@ function Document({
 
 function Layout({ children }: { children: React.ReactNode }) {
   return (
-    <div>
-      <header>
-        <h1>
-          <Link to="/">Fugitive Sheets</Link>
+    <div className="site">
+      <header className="site__header site-header">
+        <h1 className="site-header__title">
+          <Link to="/">
+            Fugitive
+            <br />
+            <span aria-hidden>—</span> Sheets
+          </Link>
         </h1>
+        <p>
+          Anatomical “fugitive” sheets, so named because of their unfortunate
+          tendency of being torn or misplaced over time, allowed readers to
+          visualize the layers of organs lying beneath an illustrated subject’s
+          flesh. Any observer could see the interior of the body through stages
+          of dissection without the limitations set by a decaying corpse.
+        </p>
       </header>
-      <div>{children}</div>
-      <footer>
-        <span>&copy; Jay Freestone</span>
+      <div className="site__content">{children}</div>
+      <footer className="site__footer site-footer">
+        <span>
+          Made for{' '}
+          <a
+            target="_blank"
+            rel="noopener noreferrer"
+            href="https://dusty.domains/"
+          >
+            Dusty Domains
+          </a>
+        </span>
+        <span>Created by Jay Freestone</span>
+        <a
+          href="https://www.jayfreestone.com"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          jayfreestone.com
+        </a>
       </footer>
     </div>
   );

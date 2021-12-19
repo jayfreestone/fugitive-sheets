@@ -3,8 +3,6 @@ import type { LoaderFunction, MetaFunction } from 'remix';
 import createSheetMask from '~/blob/createSheetMask.server';
 import Sheet from '~/components/Sheet';
 import { createBlobFromSeed, createBlobSeed } from '~/blob/createBlob';
-import createClient from '~/github/client';
-import { useEffect } from 'react';
 import getSheet from '~/prose/getSheet';
 import getSheetIDs from '~/prose/getSheetIDs';
 
@@ -16,6 +14,7 @@ interface SheetData {
   sheetImage: {
     left: string;
     right: string;
+    original: string;
   };
   nextSheetId: string;
 }
@@ -54,7 +53,7 @@ export const loader: LoaderFunction = async ({ params }) => {
     title: attributes.title,
     link: attributes.link,
     copy: body,
-    sheetImage: { left, right },
+    sheetImage: { left, right, original: svg },
     nextSheetId: encodeSeed(createBlobSeed(), randomSheetId),
   };
 
@@ -71,17 +70,26 @@ export default function SheetPage() {
   const data = useLoaderData<SheetData>();
 
   return (
-    <div>
-      <h1>{data.title}</h1>
-      <a href={data.link} target="_blank" rel="noopener noreferrer">
-        Reunite sheet
-      </a>
-      <Sheet
-        left={data.sheetImage.left}
-        right={data.sheetImage.right}
-        copy={data.copy}
-      />
-      <Link to={`/sheets/${encodeURIComponent(data.nextSheetId)}`}>Next</Link>
+    <div className="sheet-observer">
+      <div className="sheet_observer__header">
+        <h1>{data.title}</h1>
+        <a href={data.link} target="_blank" rel="noopener noreferrer">
+          Reunite sheet
+        </a>
+      </div>
+      <div className="sheet-observer__frame">
+        <div className="sheet-observer__sheet">
+          <Sheet
+            left={data.sheetImage.left}
+            right={data.sheetImage.right}
+            original={data.sheetImage.original}
+            copy={data.copy}
+          />
+        </div>
+      </div>
+      <Link to={`/sheets/${encodeURIComponent(data.nextSheetId)}`}>
+        Another
+      </Link>
     </div>
   );
 }
