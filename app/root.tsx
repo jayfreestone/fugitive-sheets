@@ -13,7 +13,12 @@ import React from 'react';
 import globalStylesUrl from '~/styles/global.css';
 
 export let links: LinksFunction = () => {
-  return [{ rel: 'stylesheet', href: globalStylesUrl }];
+  return [
+    { rel: 'stylesheet', href: globalStylesUrl },
+    { rel: 'icon', href: '/img/favicon.ico', sizes: 'any' },
+    { rel: 'icon', href: '/img/icon.svg', sizes: 'image/svg+xml' },
+    { rel: 'apple-touch-icon', href: '/img/apple-touch-icon.png' },
+  ];
 };
 
 export default function App() {
