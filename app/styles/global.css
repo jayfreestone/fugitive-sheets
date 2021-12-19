@@ -309,6 +309,15 @@ a:hover {
   gap: var(--space-2xs);
 }
 
+.sheet-observer__links {
+  display: flex;
+}
+
+.sheet-observer__link:not(:first-child)::before {
+  margin: 0 var(--space-2xs);
+  content: "/";
+}
+
 .sheet-observer__frame {
   position: relative;
   flex-grow: 1;
