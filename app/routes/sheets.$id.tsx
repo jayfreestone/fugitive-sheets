@@ -12,7 +12,7 @@ function createNotFound() {
 
 export function headers() {
   return {
-    'Cache-Control': 'max-age=0, s-maxage=86400',
+    'Cache-Control': 'max-age=3600, s-maxage=86400',
   };
 }
 
@@ -40,7 +40,11 @@ export const loader: LoaderFunction = async ({ params }) => {
       nextSheetId: createSeed(),
     };
 
-    return data;
+    return new Response(JSON.stringify(data), {
+      headers: {
+        'Cache-control': 'max-age=3600, s-maxage=86400',
+      },
+    });
   } catch (e) {
     // Prefer to display a 404 if any part of it failed,
     // rather than an error indicating a missing file etc.

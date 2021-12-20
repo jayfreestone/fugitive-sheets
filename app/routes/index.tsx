@@ -8,7 +8,7 @@ import getSheet from '~/prose/getSheet';
 
 export function headers() {
   return {
-    'Cache-Control': 'max-age=0',
+    'Cache-Control': 'max-age=0, s-maxage=1, stale-while-revalidate=86400',
   };
 }
 
@@ -30,7 +30,11 @@ export const loader: LoaderFunction = () => {
     nextSheetId: createSeed(),
   };
 
-  return data;
+  return new Response(JSON.stringify(data), {
+    headers: {
+      'Cache-Control': 'max-age=0, s-maxage=1, stale-while-revalidate=86400',
+    },
+  });
 };
 
 export const meta: MetaFunction = () => {
