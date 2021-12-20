@@ -10,12 +10,6 @@ function createNotFound() {
   throw new Response('Seed not found', { status: 404 });
 }
 
-export function headers() {
-  return {
-    'Cache-Control': 'max-age=86400, s-maxage=86400',
-  };
-}
-
 export const loader: LoaderFunction = async ({ params }) => {
   const seed = params.id;
 
