@@ -1,5 +1,6 @@
 import fs from 'fs';
 import fm from 'front-matter';
+import path from 'path';
 
 interface FileSheet {
   body: string;
@@ -9,8 +10,10 @@ interface FileSheet {
   };
 }
 
+export const sheetPath = './netlify/functions/server/sheets';
+
 function getSheet(id: string): FileSheet {
-  const data = fs.readFileSync(`./sheets/${id}.md`, 'utf8');
+  const data = fs.readFileSync(path.join(sheetPath, `${id}.md`), 'utf8');
 
   const { body, attributes } = fm<FileSheet['attributes']>(data);
 
