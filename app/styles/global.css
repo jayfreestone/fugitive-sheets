@@ -252,6 +252,8 @@ a:hover {
 
 .site-header__title {
   --site-header-size: var(--step-5);
+  font-family: "GT Sectra Display", serif;
+  text-transform: lowercase;
   font-size: var(--site-header-size);
   line-height: 1.1;
   white-space: nowrap;
