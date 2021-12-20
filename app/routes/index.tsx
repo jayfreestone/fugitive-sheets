@@ -6,6 +6,12 @@ import { createBlobFromSeed } from '~/blob/createBlob';
 import createSheetMask from '~/blob/createSheetMask.server';
 import getSheet from '~/prose/getSheet';
 
+export function headers() {
+  return {
+    'Cache-Control': 'max-age=0',
+  };
+}
+
 export const loader: LoaderFunction = () => {
   const seed = createSeed();
   const [blobSeed, sheetId] = decodeSeed(seed);
