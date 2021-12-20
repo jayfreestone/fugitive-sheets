@@ -5,7 +5,7 @@ interface FileSheet {
   body: string;
   attributes: {
     title: string;
-    link: string;
+    link?: string;
   };
 }
 
@@ -18,7 +18,7 @@ function getSheet(id: string): FileSheet {
     throw new Error('Sheet is missing attributes');
   }
 
-  if (!('title' in attributes) || !('link' in attributes)) {
+  if (!('title' in attributes)) {
     throw new Error('Sheet is missing required metadata');
   }
 

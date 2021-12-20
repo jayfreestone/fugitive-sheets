@@ -8,7 +8,7 @@ export interface SheetData {
   id: string;
   title: string;
   copy: string;
-  link: string;
+  link?: string;
   sheetImage: {
     left: string;
     right: string;
@@ -32,11 +32,13 @@ function SheetPage() {
       <div className="sheet-observer__header">
         <h2>{data.title}</h2>
         <div className="sheet-observer__links">
-          <span className="sheet-observer__link">
-            <a href={data.link} target="_blank" rel="noopener noreferrer">
-              Source
-            </a>
-          </span>
+          {Boolean(data.link) && (
+            <span className="sheet-observer__link">
+              <a href={data.link} target="_blank" rel="noopener noreferrer">
+                Source
+              </a>
+            </span>
+          )}
           <span className="sheet-observer__link">
             <a
               href={`/sheets/${encodeURIComponent(data.id)}`}
