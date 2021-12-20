@@ -55,7 +55,7 @@ export function CatchBoundary() {
   let message;
   switch (caught.status) {
     case 404:
-      message = <p>404: A truly fugitive sheet...</p>;
+      message = <p>A truly fugitive sheet...</p>;
       break;
     default:
       throw new Error(caught.data || caught.statusText);
@@ -64,10 +64,12 @@ export function CatchBoundary() {
   return (
     <Document title={`${caught.status} ${caught.statusText}`}>
       <Layout>
-        <h1>
-          {caught.status}: {caught.statusText}
-        </h1>
-        {message}
+        <div className="prose">
+          <h1>
+            {caught.status}: {caught.statusText}
+          </h1>
+          {message}
+        </div>
       </Layout>
     </Document>
   );

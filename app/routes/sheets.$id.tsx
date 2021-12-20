@@ -6,30 +6,40 @@ import { decodeSeed } from '~/seed/encoding';
 import SheetPage, { SheetData } from '~/components/SheetPage';
 import createSeed from '~/seed/createSeed';
 
+function createNotFound() {
+  throw new Response('Seed not found', { status: 404 });
+}
+
 export const loader: LoaderFunction = async ({ params }) => {
   const seed = params.id;
 
   if (!seed) {
-    throw new Response('Seed not found', { status: 404 });
+    throw createNotFound();
   }
 
-  const [blobSeed, sheetId] = decodeSeed(seed);
+  try {
+    const [blobSeed, sheetId] = decodeSeed(seed);
 
-  const svg = createBlobFromSeed(blobSeed);
-  const [left, right] = createSheetMask(svg);
+    const svg = createBlobFromSeed(blobSeed);
+    const [left, right] = createSheetMask(svg);
 
-  const { attributes, body } = getSheet(sheetId);
+    const { attributes, body } = getSheet(sheetId);
 
-  const data: SheetData = {
-    id: seed,
-    title: attributes.title,
-    link: attributes.link,
-    copy: body,
-    sheetImage: { left, right, original: svg },
-    nextSheetId: createSeed(),
-  };
+    const data: SheetData = {
+      id: seed,
+      title: attributes.title,
+      link: attributes.link,
+      copy: body,
+      sheetImage: { left, right, original: svg },
+      nextSheetId: createSeed(),
+    };
 
-  return data;
+    return data;
+  } catch (e) {
+    // Prefer to display a 404 if any part of it failed,
+    // rather than an error indicating a missing file etc.
+    throw createNotFound();
+  }
 };
 
 export const meta: MetaFunction = ({ data }: { data: SheetData }) => {
@@ -40,8 +50,6 @@ export const meta: MetaFunction = ({ data }: { data: SheetData }) => {
   return {
     title,
     'og:title': title,
-    description:
-      'Anatomical “fugitive sheets” are are illustrations of the body designed to display internal organs and structures using paper flaps. Their name arose from the frequency with which the accompanying sheets were torn or misplaced. This site reimagines the fugitive sheet as a misplaced code-snippet, framed within a randomly generated cut-out.',
   };
 };
 
