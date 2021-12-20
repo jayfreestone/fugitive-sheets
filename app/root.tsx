@@ -9,6 +9,7 @@ import {
   Scripts,
   ScrollRestoration,
   useCatch,
+  useLoaderData,
 } from 'remix';
 import type { LinksFunction } from 'remix';
 import React from 'react';
@@ -82,6 +83,8 @@ function Document({
   children: React.ReactNode;
   title?: string;
 }) {
+  const data = useLoaderData<RootData>();
+
   return (
     <html lang="en">
       <head>
@@ -90,6 +93,24 @@ function Document({
         {title ? <title>{title}</title> : null}
         <Meta />
         <Links />
+        {data.env.GOOGLE_ANALYTICS_ID && (
+          <>
+            <script
+              async
+              src={`https://www.googletagmanager.com/gtag/js?id=${data.env.GOOGLE_ANALYTICS_ID}`}
+            />
+            <script
+              dangerouslySetInnerHTML={{
+                __html: `
+                  window.dataLayer = window.dataLayer || [];
+                  function gtag(){dataLayer.push(arguments);}
+                  gtag('js', new Date());
+                  gtag('config', '${data.env.GOOGLE_ANALYTICS_ID}');
+                `,
+              }}
+            />
+          </>
+        )}
       </head>
       <body>
         {children}
@@ -104,6 +125,9 @@ function Document({
 export interface RootData {
   baseUrl: string;
   currentUrl: string;
+  env: {
+    GOOGLE_ANALYTICS_ID?: string;
+  };
 }
 
 export const loader: LoaderFunction = async ({ request }) => {
@@ -112,6 +136,9 @@ export const loader: LoaderFunction = async ({ request }) => {
   const data: RootData = {
     baseUrl: url.origin,
     currentUrl: url.toString(),
+    env: {
+      GOOGLE_ANALYTICS_ID: process.env.GOOGLE_ANALYTICS_ID,
+    },
   };
 
   return data;
