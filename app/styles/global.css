@@ -157,7 +157,7 @@ textarea {
 
 :root {
   --t-base: #f8f9fa;
-  --t-base-muted: #dee2e6;
+  --t-base-muted: #ced4da;
   --t-backdrop: #212529;
   --t-backdrop-raised: #1e2125;
   --t-accent: #4dabf7;
@@ -233,7 +233,7 @@ a:hover {
     --site-grid-rows: 1fr auto;
     --site-grid-gap: var(--space-xl);
     --site-top-margin: 0;
-    grid-template-columns: 30rem 1fr;
+    grid-template-columns: 30rem minmax(1rem, 1fr);
   }
 }
 
@@ -434,6 +434,16 @@ a:hover {
   line-height: 1.3;
   font-size: 0.4rem;
   text-align: justify;
+
+  /*
+   * Since the size of the copy can change quite dramatically, as well as the shape itself,
+   * the gradient can appear wildly different from page-to-page. This kind of fits with the
+   * randomness of the rest of the implementation, so I've not attempted to make it more
+   * consistent.
+   */
+  background: radial-gradient(circle at top, var(--t-base), var(--t-accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
 @media (min-width: 40em) {

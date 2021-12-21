@@ -48,13 +48,7 @@ function SheetPage({
             </span>
           )}
           <span className="sheet-observer__link">
-            <a
-              href={`/sheets/${encodeURIComponent(data.id)}`}
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Permalink
-            </a>
+            <a href={`/sheets/${encodeURIComponent(data.id)}`}>Permalink</a>
           </span>
         </div>
       </div>
