@@ -23,8 +23,8 @@ export default function About() {
           >
             “fugitive sheets”
           </a>{' '}
-          I instantly registered the domain. I loved the idea of dissecting the
-          inner workings of something and displaying it in a novel way.
+          I instantly registered the domain. I loved the idea of dissecting
+          something and displaying it in a novel way.
         </p>
 
         <p>
