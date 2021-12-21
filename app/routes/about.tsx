@@ -19,7 +19,7 @@ export default function About() {
           <a href="https://en.wikipedia.org/wiki/Anatomical_fugitive_sheet">
             “fugitive sheets”
           </a>{' '}
-          I instantly registered the domain. I loved the idea of dissecting
+          I instantly registered the domain. I loved the idea of deconstructing
           something and displaying it in a novel way.
         </p>
 
