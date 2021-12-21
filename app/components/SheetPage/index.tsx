@@ -4,6 +4,7 @@ import Sheet from '~/components/Sheet';
 import RefreshIcon from '~/components/RefreshIcon';
 import useTimeoutLoader from '~/hooks/useTimeoutLoader';
 import { Transition } from '@remix-run/react/transition';
+import { useMatch } from 'react-router';
 
 export interface SheetData {
   id: string;
@@ -25,6 +26,8 @@ function SheetPage({
   data: SheetData;
   transitionState: Transition['state'];
 }) {
+  const match = useMatch('/');
+  const TitleTag = match ? 'h2' : 'h1';
   const showLoader = useTimeoutLoader(transitionState);
 
   // Ensure there is at least 3000 characters in the copy by duplicating the
@@ -40,7 +43,7 @@ function SheetPage({
       )}
     >
       <div className="sheet-observer__header">
-        <h2 className="sheet-observer__title">{data.title}</h2>
+        <TitleTag className="sheet-observer__title">{data.title}</TitleTag>
         <div className="sheet-observer__links">
           {Boolean(data.link) && (
             <span className="sheet-observer__link">
