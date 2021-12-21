@@ -38,7 +38,5 @@ export default function Index() {
   const data = useLoaderData<SheetData>();
   const transition = useTransition();
 
-  console.log('data for index is', data);
-
   return <SheetPage data={data} transitionState={transition.state} />;
 }
