@@ -190,6 +190,14 @@ h5 {
   text-transform: lowercase;
 }
 
+h1 {
+  font-size: var(--step-3);
+}
+
+h2 {
+  font-size: var(--step-2);
+}
+
 code {
   font-family: "JetBrains Mono", monospace;
 }
@@ -503,8 +511,13 @@ a:hover {
 .about {
   display: flex;
   align-items: center;
-  justify-content: space-around;
   height: 100%;
+}
+
+@media (min-width: 70em) {
+  .about {
+    justify-content: space-around;
+  }
 }
 
 .about__prose {
