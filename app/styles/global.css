@@ -213,17 +213,15 @@ a:hover {
   --site-grid-template: 'header' 'content' 'footer';
   --site-grid-rows: auto 1fr auto;
   --site-grid-gap: var(--space-m);
-  --site-top-margin: var(--space-l);
 
   min-height: 100vh;
   display: grid;
   grid-template-areas: var(--site-grid-template);
   grid-template-rows: var(--site-grid-rows);
   grid-gap: var(--site-grid-gap);
-  padding: var(--site-grid-gap);
+  padding: calc(var(--site-grid-gap) + var(--space-l)) var(--site-grid-gap) var(--site-grid-gap);
   overflow: hidden;
   isolation: isolate;
-  margin-top: var(--site-top-margin);
 }
 
 @media (min-width: 50em) {
@@ -237,8 +235,8 @@ a:hover {
     --site-grid-template: 'header content' 'footer footer';
     --site-grid-rows: 1fr auto;
     --site-grid-gap: var(--space-xl);
-    --site-top-margin: 0;
     grid-template-columns: 30rem minmax(1rem, 1fr);
+    padding: var(--site-grid-gap);
   }
 }
 
