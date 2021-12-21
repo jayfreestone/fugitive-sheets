@@ -9,7 +9,7 @@ import { json, useLoaderData, useTransition } from 'remix';
 
 export function headers() {
   return {
-    'Cache-Control': 'max-age=0, s-maxage=1, stale-while-revalidate=86400',
+    'Cache-Control': 'max-age=4, s-maxage=4',
   };
 }
 
