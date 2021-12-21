@@ -1,10 +1,11 @@
-import type { MetaFunction, LoaderFunction } from 'remix';
+import type { LoaderFunction } from 'remix';
 import SheetPage, { SheetData } from '~/components/SheetPage';
 import createSeed from '~/seed/createSeed';
 import { decodeSeed } from '~/seed/encoding';
 import { createBlobFromSeed } from '~/blob/createBlob';
 import createSheetMask from '~/blob/createSheetMask.server';
 import getSheet from '~/prose/getSheet';
+import { json, useLoaderData, useTransition } from 'remix';
 
 export function headers() {
   return {
@@ -30,19 +31,14 @@ export const loader: LoaderFunction = () => {
     nextSheetId: createSeed(),
   };
 
-  return new Response(JSON.stringify(data), {
-    headers: {
-      'Cache-Control': 'max-age=0, s-maxage=1, stale-while-revalidate=86400',
-    },
-  });
+  return json(data);
 };
 
-export const meta: MetaFunction = () => {
-  return {
-    title: 'Fugitive Sheets',
-    description:
-      'Anatomical “fugitive sheets” are are illustrations of the body designed to display internal organs and structures using paper flaps. Their name arose from the frequency with which the accompanying sheets were torn or misplaced. This site reimagines the fugitive sheet as a misplaced code-snippet, framed within a randomly generated cut-out.',
-  };
-};
+export default function Index() {
+  const data = useLoaderData<SheetData>();
+  const transition = useTransition();
 
-export default SheetPage;
+  console.log('data for index is', data);
+
+  return <SheetPage data={data} transitionState={transition.state} />;
+}

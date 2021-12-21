@@ -5,6 +5,7 @@ import getSheet from '~/prose/getSheet';
 import { decodeSeed } from '~/seed/encoding';
 import SheetPage, { SheetData } from '~/components/SheetPage';
 import createSeed from '~/seed/createSeed';
+import { json, useLoaderData, useTransition } from 'remix';
 
 function createNotFound() {
   throw new Response('Seed not found', { status: 404 });
@@ -40,11 +41,7 @@ export const loader: LoaderFunction = async ({ params }) => {
       nextSheetId: createSeed(),
     };
 
-    return new Response(JSON.stringify(data), {
-      headers: {
-        'Cache-control': 'max-age=3600, s-maxage=86400',
-      },
-    });
+    return json(data);
   } catch (e) {
     // Prefer to display a 404 if any part of it failed,
     // rather than an error indicating a missing file etc.
@@ -63,4 +60,9 @@ export const meta: MetaFunction = ({ data }: { data: SheetData }) => {
   };
 };
 
-export default SheetPage;
+export default function SheetSingle() {
+  const data = useLoaderData<SheetData>();
+  const transition = useTransition();
+
+  return <SheetPage data={data} transitionState={transition.state} />;
+}

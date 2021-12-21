@@ -26,8 +26,10 @@ export let links: LinksFunction = () => {
 };
 
 export default function App() {
+  const data = useLoaderData<RootData>();
+
   return (
-    <Document>
+    <Document analyticsId={data.env.GOOGLE_ANALYTICS_ID}>
       <Layout>
         <Outlet />
       </Layout>
@@ -79,14 +81,12 @@ export function CatchBoundary() {
 function Document({
   children,
   title,
+  analyticsId,
 }: {
   children: React.ReactNode;
   title?: string;
+  analyticsId?: string;
 }) {
-  const data = useLoaderData<RootData>();
-
-  console.log('Document data', data);
-
   return (
     <html lang="en">
       <head>
@@ -95,11 +95,11 @@ function Document({
         {title ? <title>{title}</title> : null}
         <Meta />
         <Links />
-        {data.env.GOOGLE_ANALYTICS_ID && (
+        {Boolean(analyticsId) && (
           <>
             <script
               async
-              src={`https://www.googletagmanager.com/gtag/js?id=${data.env.GOOGLE_ANALYTICS_ID}`}
+              src={`https://www.googletagmanager.com/gtag/js?id=${analyticsId}`}
             />
             <script
               dangerouslySetInnerHTML={{
@@ -107,7 +107,7 @@ function Document({
                   window.dataLayer = window.dataLayer || [];
                   function gtag(){dataLayer.push(arguments);}
                   gtag('js', new Date());
-                  gtag('config', '${data.env.GOOGLE_ANALYTICS_ID}');
+                  gtag('config', '${analyticsId}');
                 `,
               }}
             />

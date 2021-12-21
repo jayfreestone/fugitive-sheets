@@ -1,8 +1,9 @@
-import { Link, useLoaderData, useTransition } from 'remix';
+import { Link } from 'remix';
 import cn from 'classnames';
 import Sheet from '~/components/Sheet';
 import RefreshIcon from '~/components/RefreshIcon';
 import useTimeoutLoader from '~/hooks/useTimeoutLoader';
+import { Transition } from '@remix-run/react/transition';
 
 export interface SheetData {
   id: string;
@@ -17,10 +18,14 @@ export interface SheetData {
   nextSheetId: string;
 }
 
-function SheetPage() {
-  const data = useLoaderData<SheetData>();
-  const transition = useTransition();
-  const showLoader = useTimeoutLoader(transition.state);
+function SheetPage({
+  data,
+  transitionState,
+}: {
+  data: SheetData;
+  transitionState: Transition['state'];
+}) {
+  const showLoader = useTimeoutLoader(transitionState);
 
   return (
     <div
