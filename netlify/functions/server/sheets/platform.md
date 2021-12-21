@@ -1,4 +1,4 @@
---
+---
 title: platform
---
+---
 apiVersion: apps/v1 kind: Deployment metadata: name: wordpress namespace: damascus-road labels: app.kubernetes.io/name: wordpress app.kubernetes.io/part-of: wordpress spec: replicas: 1 selector: matchLabels: app.kubernetes.io/name: wordpress template: metadata: labels: app.kubernetes.io/name: wordpress spec: containers: - name: wordpress image: jayfreestone/damascus-road env: - name: DB_PASSWORD valueFrom: secretKeyRef: name: wordpress-mysql-auth key: password - name: DB_USER valueFrom: secretKeyRef: name: wordpress-mysql-auth key: username envFrom: - configMapRef: name: wp-config - secretRef: name: wp-secrets - secretRef: name: s3 readinessProbe: httpGet: path: /healthz port: 80 initialDelaySeconds: 10 periodSeconds: 120 livenessProbe: failureThreshold: 10 httpGet: path: /healthz port: 80 initialDelaySeconds: 10 periodSeconds: 120 imagePullSecrets: - name: dockerhub
