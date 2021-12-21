@@ -39,6 +39,11 @@ textarea {
   white-space: revert;
 }
 
+svg,
+img {
+  vertical-align: middle;
+}
+
 /***
  * Fonts
  */
