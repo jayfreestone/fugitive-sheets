@@ -177,6 +177,8 @@ body {
   background-color: var(--t-backdrop);
   font-size: var(--step-0);
   line-height: 1.4;
+  min-height: 100vh;
+  display: flex;
 }
 
 h1,
@@ -214,7 +216,6 @@ a:hover {
   --site-grid-rows: auto 1fr auto;
   --site-grid-gap: var(--space-m);
 
-  min-height: 100vh;
   display: grid;
   grid-template-areas: var(--site-grid-template);
   grid-template-rows: var(--site-grid-rows);
@@ -222,6 +223,7 @@ a:hover {
   padding: calc(var(--site-grid-gap) + var(--space-l)) var(--site-grid-gap) var(--site-grid-gap);
   overflow: hidden;
   isolation: isolate;
+  width: 100%;
 }
 
 @media (min-width: 50em) {
@@ -237,6 +239,8 @@ a:hover {
     --site-grid-gap: var(--space-xl);
     grid-template-columns: 30rem minmax(1rem, 1fr);
     padding: var(--site-grid-gap);
+    margin: var(--space-l);
+    border: 1px solid var(--t-base);
   }
 }
 
