@@ -44,9 +44,7 @@ function SheetPage({
         <div className="sheet-observer__links">
           {Boolean(data.link) && (
             <span className="sheet-observer__link">
-              <a href={data.link} target="_blank" rel="noopener noreferrer">
-                Source
-              </a>
+              <a href={data.link}>Source</a>
             </span>
           )}
           <span className="sheet-observer__link">

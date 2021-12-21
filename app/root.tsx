@@ -195,11 +195,7 @@ function Layout({ children }: { children: React.ReactNode }) {
         <div className="site-header__intro prose">
           <p>
             Anatomical{' '}
-            <a
-              target="_blank"
-              rel="noopener noreferrer"
-              href="https://en.wikipedia.org/wiki/Anatomical_fugitive_sheet"
-            >
+            <a href="https://en.wikipedia.org/wiki/Anatomical_fugitive_sheet">
               “fugitive sheets”
             </a>{' '}
             are illustrations of the body designed to display internal organs
@@ -216,30 +212,11 @@ function Layout({ children }: { children: React.ReactNode }) {
       <div className="site__content">{children}</div>
       <footer className="site__footer site-footer">
         <span>
-          Made for{' '}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://dusty.domains/"
-          >
-            Dusty Domains
-          </a>
+          Made for <a href="https://dusty.domains/">Dusty Domains</a>
         </span>
         <span>Created by Jay Freestone</span>
-        <a
-          href="https://twitter.com/jayfreestone"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          @jayfreestone
-        </a>
-        <a
-          href="https://www.jayfreestone.com"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          jayfreestone.com
-        </a>
+        <a href="https://twitter.com/jayfreestone">@jayfreestone</a>
+        <a href="https://www.jayfreestone.com">jayfreestone.com</a>
       </footer>
     </div>
   );

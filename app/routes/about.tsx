@@ -16,11 +16,7 @@ export default function About() {
         <h1>About</h1>
         <p>
           When I first heard the term{' '}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://en.wikipedia.org/wiki/Anatomical_fugitive_sheet"
-          >
+          <a href="https://en.wikipedia.org/wiki/Anatomical_fugitive_sheet">
             “fugitive sheets”
           </a>{' '}
           I instantly registered the domain. I loved the idea of dissecting
@@ -34,15 +30,8 @@ export default function About() {
         </p>
 
         <p>
-          For{' '}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://dusty.domains/"
-          >
-            Dusty Domains
-          </a>
-          , I finally decided to devote a weekend to putting something together.
+          For <a href="https://dusty.domains/">Dusty Domains</a>, I finally
+          decided to devote a weekend to putting something together.
         </p>
 
         <p>
@@ -54,11 +43,7 @@ export default function About() {
         <p>
           Each accompanying shape is randomly generated, then split into two in
           order to use{' '}
-          <a
-            target="_blank"
-            rel="noopener noreferrer"
-            href="https://developer.mozilla.org/en-US/docs/Web/CSS/shape-outside"
-          >
+          <a href="https://developer.mozilla.org/en-US/docs/Web/CSS/shape-outside">
             shape-outside
           </a>{' '}
           to wrap the code.
