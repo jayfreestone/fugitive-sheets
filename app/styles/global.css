@@ -47,6 +47,7 @@ textarea {
   src: url("/fonts/sectra/regular.woff2") format("woff2");
   font-style: normal;
   font-weight: normal;
+  font-display: swap;
 }
 
 @font-face {
@@ -54,6 +55,7 @@ textarea {
   src: url("/fonts/sectra/display-bold.woff2") format("woff2");
   font-style: normal;
   font-weight: bold;
+  font-display: swap;
 }
 
 @font-face {
@@ -61,6 +63,7 @@ textarea {
   src: url("/fonts/jetbrains-mono/regular.woff2") format("woff2");
   font-style: normal;
   font-weight: normal;
+  font-display: swap;
 }
 
 /***
@@ -156,6 +159,7 @@ textarea {
   --t-base: #f8f9fa;
   --t-base-muted: #dee2e6;
   --t-backdrop: #212529;
+  --t-backdrop-raised: #1e2125;
   --t-accent: #4dabf7;
 }
 
@@ -167,6 +171,7 @@ body {
   color: var(--t-base);
   background-color: var(--t-backdrop);
   font-size: var(--step-0);
+  line-height: 1.4;
 }
 
 h1,
@@ -202,7 +207,8 @@ a:hover {
 .site {
   --site-grid-template: 'header' 'content' 'footer';
   --site-grid-rows: auto 1fr auto;
-  --site-grid-gap: var(--space-l);
+  --site-grid-gap: var(--space-m);
+  --site-top-margin: var(--space-l);
 
   min-height: 100vh;
   display: grid;
@@ -212,6 +218,13 @@ a:hover {
   padding: var(--site-grid-gap);
   overflow: hidden;
   isolation: isolate;
+  margin-top: var(--site-top-margin);
+}
+
+@media (min-width: 50em) {
+  .site {
+    --site-grid-gap: var(--space-l);
+  }
 }
 
 @media (min-width: 70em) {
@@ -219,6 +232,7 @@ a:hover {
     --site-grid-template: 'header content' 'footer footer';
     --site-grid-rows: 1fr auto;
     --site-grid-gap: var(--space-xl);
+    --site-top-margin: 0;
     grid-template-columns: 30rem 1fr;
   }
 }
@@ -249,7 +263,7 @@ a:hover {
 }
 
 .site-header__title {
-  --site-header-size: var(--step-5);
+  --site-header-size: 3.4rem;
   font-family: "GT Sectra Display", serif;
   text-transform: lowercase;
   font-size: var(--site-header-size);
@@ -278,7 +292,6 @@ a:hover {
   --intro-alignment: center;
   min-width: min(20ch, 100%);
   max-width: 50ch;
-  color: var(--t-base-muted);
   align-self: var(--intro-alignment);
 }
 
@@ -294,12 +307,24 @@ a:hover {
 .sheet-observer {
   display: flex;
   flex-direction: column;
+  gap: var(--space-m);
   height: 100%;
   transition: opacity 0.1s;
+  isolation: isolate;
+}
+
+@media (min-width: 70em) {
+  .sheet-observer {
+    gap: unset;
+  }
 }
 
 .sheet-observer--is-loading {
   opacity: 0.2;
+}
+
+.sheet-observer__title {
+  text-transform: none;
 }
 
 .sheet-observer__header {
@@ -307,6 +332,7 @@ a:hover {
   flex-direction: column;
   align-items: flex-end;
   gap: var(--space-2xs);
+  z-index: 4;
 }
 
 .sheet-observer__links {
@@ -321,8 +347,33 @@ a:hover {
 .sheet-observer__frame {
   position: relative;
   flex-grow: 1;
-  /* Ensure on mobile etc. that we at least get a decent size sheet */
-  min-height: 40rem;
+  aspect-ratio: 1 / 1;
+}
+
+.sheet-observer__frame::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-top: 2px dashed var(--t-base);
+  border-bottom: 2px dashed var(--t-base);
+  z-index: 2;
+  opacity: 0.1;
+}
+
+@media (min-width: 70em) {
+  .sheet-observer__frame {
+    aspect-ratio: unset;
+
+    /* Ensure if the viewport collapses we still get a decent size sheet */
+    min-height: 40rem;
+  }
+
+  .sheet-observer__frame::after {
+    display: none;
+  }
 }
 
 .sheet-observer__sheet {
@@ -334,6 +385,7 @@ a:hover {
   display: flex;
   align-items: center;
   justify-content: space-around;
+  z-index: 3;
 }
 
 .sheet-observer__sheet > * {
@@ -343,6 +395,8 @@ a:hover {
 
 .sheet-observer__footer {
   text-align: right;
+  z-index: 4;
+  text-transform: lowercase;
 }
 
 /**
@@ -375,8 +429,17 @@ a:hover {
 }
 
 .sheet__copy {
+  display: block;
   hyphens: auto;
-  font-size: clamp(0.6rem, 0.4rem + 0.5vw, 1.6rem);
+  line-height: 1.3;
+  font-size: 0.4rem;
+  text-align: justify;
+}
+
+@media (min-width: 40em) {
+  .sheet__copy {
+    font-size: 0.8rem;
+  }
 }
 
 .sheet__ghost {
@@ -387,8 +450,7 @@ a:hover {
   height: 100%;
   z-index: -1;
   transform: scale(1.6);
-  opacity: 0.1;
-  fill: black;
+  fill: var(--t-backdrop-raised);
   pointer-events: none;
 }
 
@@ -400,7 +462,6 @@ a:hover {
   flex-wrap: wrap;
   justify-content: flex-end;
   gap: var(--space-xs) var(--space-m);
-  color: var(--t-base-muted);
 }
 
 /**
@@ -414,6 +475,9 @@ a:hover {
   vertical-align: -0.2em;
 }
 
+.icon--push-right {
+  margin-right: var(--space-2xs);
+}
 
 /**
  * About
@@ -427,9 +491,11 @@ a:hover {
 
 .about__prose {
   max-width: 56ch;
-  color: var(--t-base-muted);
 }
 
+/**
+ * Prose
+ */
 .prose > * + * {
   margin-top: var(--space-s);
 }

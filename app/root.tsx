@@ -96,7 +96,10 @@ function Document({
     <html lang="en">
       <head>
         <meta charSet="utf-8" />
-        <meta name="viewport" content="width=device-width,initial-scale=1" />
+        <meta
+          name="viewport"
+          content="width=device-width,initial-scale=1, viewport-fit=cover"
+        />
         {title ? <title>{title}</title> : null}
         <Meta />
         <Links />
@@ -157,7 +160,7 @@ export const meta: MetaFunction = ({ data }) => {
 
   const title = 'Fugitive Sheets';
   const description =
-    'Anatomical “fugitive sheets” are are illustrations of' +
+    'Anatomical “fugitive sheets” are illustrations of' +
     ' the body designed to display internal organs and structures using paper flaps. Their name arose from the frequency with which the accompanying sheets were torn or misplaced. This site reimagines the fugitive sheet as a misplaced code-snippet, framed within a randomly generated cut-out.';
 
   return {
@@ -199,8 +202,8 @@ function Layout({ children }: { children: React.ReactNode }) {
             >
               “fugitive sheets”
             </a>{' '}
-            are are illustrations of the body designed to display internal
-            organs and structures using paper flaps. Their name arose from the
+            are illustrations of the body designed to display internal organs
+            and structures using paper flaps. Their name arose from the
             frequency with which the accompanying sheets were torn or misplaced.
             This site reimagines the fugitive sheet as a misplaced code-snippet,
             framed within a randomly generated cut-out.

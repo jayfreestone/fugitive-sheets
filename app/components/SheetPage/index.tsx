@@ -27,6 +27,11 @@ function SheetPage({
 }) {
   const showLoader = useTimeoutLoader(transitionState);
 
+  // Ensure there is at least 3000 characters in the copy by duplicating the
+  // original string. Not ideal, but better than a totally empty shape.
+  const copies = Math.ceil(3000 / data.copy.length);
+  const displayCopy = new Array(copies).fill(data.copy).join(' ');
+
   return (
     <div
       className={cn(
@@ -35,7 +40,7 @@ function SheetPage({
       )}
     >
       <div className="sheet-observer__header">
-        <h2>{data.title}</h2>
+        <h2 className="sheet-observer__title">{data.title}</h2>
         <div className="sheet-observer__links">
           {Boolean(data.link) && (
             <span className="sheet-observer__link">
@@ -61,13 +66,13 @@ function SheetPage({
             left={data.sheetImage.left}
             right={data.sheetImage.right}
             original={data.sheetImage.original}
-            copy={data.copy}
+            copy={displayCopy}
           />
         </div>
       </div>
       <div className="sheet-observer__footer">
         <Link to={`/sheets/${encodeURIComponent(data.nextSheetId)}`}>
-          <RefreshIcon className="icon" />
+          <RefreshIcon className="icon icon--push-right" />
           Next sheet
         </Link>
       </div>

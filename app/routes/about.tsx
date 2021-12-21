@@ -15,7 +15,7 @@ export default function About() {
       <div className="about__prose prose">
         <h1>About</h1>
         <p>
-          When I first heard about the term{' '}
+          When I first heard the term{' '}
           <a
             target="_blank"
             rel="noopener noreferrer"
@@ -28,9 +28,9 @@ export default function About() {
         </p>
 
         <p>
-          I also loved the idea of the sheets themselves, little windows into
-          the inner workings of something, devoid of context, as found objects
-          in the world.
+          I also loved the idea of the lost sheets themselves, windows into the
+          inner workings of something, devoid of context, as found objects in
+          the world.
         </p>
 
         <p>
@@ -46,9 +46,9 @@ export default function About() {
         </p>
 
         <p>
-          Each sheet includes an excerpt of code taken I've written throughout
-          my career — some private, some public, some good and some poor. Where
-          a source is public, it is provided.
+          Each sheet includes an excerpt of code taken taken from my career —
+          some private (although not too private), some public, some good and
+          some poor. Where a source is public, it is provided.
         </p>
 
         <p>
