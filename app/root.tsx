@@ -85,6 +85,8 @@ function Document({
 }) {
   const data = useLoaderData<RootData>();
 
+  console.log('Document data', data);
+
   return (
     <html lang="en">
       <head>
