@@ -10,6 +10,7 @@ import {
   ScrollRestoration,
   useCatch,
   useLoaderData,
+  useMatches,
 } from 'remix';
 import type { LinksFunction } from 'remix';
 import React from 'react';
@@ -87,6 +88,10 @@ function Document({
   title?: string;
   analyticsId?: string;
 }) {
+  const matches = useMatches();
+  // If at least one route wants to hydrate, this will return true
+  const includeScripts = matches.some((match) => match.handle?.hydrate);
+
   return (
     <html lang="en">
       <head>
@@ -117,7 +122,7 @@ function Document({
       <body>
         {children}
         <ScrollRestoration />
-        <Scripts />
+        {includeScripts && <Scripts />}
         {process.env.NODE_ENV === 'development' && <LiveReload />}
       </body>
     </html>
